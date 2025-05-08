@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Cliente } from '../../cliente/entity/cliente.entity';
 
@@ -11,7 +11,11 @@ export class Sacerdote {
 
     @Field()
     @Column()
-    nombre: string;
+    nombreCompleto: string;
+
+    @Field(() => Int)
+    @Column({ default: 0 })
+    cantidad: number;
 
     @OneToMany(() => Cliente, cliente => cliente.sacerdote)
     clientes: Cliente[];

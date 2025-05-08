@@ -20,7 +20,7 @@ export class ClienteService {
     ) { }
 
     async create(input: CreateClienteInput): Promise<Cliente> {
-        const nombresSeparados = input.padrinosNombres.split(/\s+y\s+/); // separa por " y "
+        const nombresSeparados = input.padrinos.split(/\s+y\s+/); // separa por " y "
 
         // Inserta cada padrino si no existe
         for (const nombre of nombresSeparados) {
@@ -37,7 +37,23 @@ export class ClienteService {
 
         // Relacionar solo con el primer padrino por simplicidad
         const padrinoPrincipal = await this.padrinoRepo.findOne({ where: { nombre: nombresSeparados[0] } });
-        const sacerdote = await this.sacerdoteRepo.findOne({ where: { id: input.sacerdoteId } });
+        // ───── Procesar Sacerdote por nombre ─────
+        const sacerdoteExistente = await this.sacerdoteRepo.findOne({
+            where: { nombreCompleto: input.sacerdote },
+        });
+
+        let sacerdote: Sacerdote;
+
+        if (!sacerdoteExistente) {
+            sacerdote = this.sacerdoteRepo.create({
+                nombreCompleto: input.sacerdote,
+                cantidad: 1,
+            });
+            await this.sacerdoteRepo.save(sacerdote);
+        } else {
+            sacerdoteExistente.cantidad += 1;
+            sacerdote = await this.sacerdoteRepo.save(sacerdoteExistente);
+        }
 
         if (!padrinoPrincipal) {
             throw new Error('Padrino no encontrado'); // puedes usar BadRequestException si prefieres

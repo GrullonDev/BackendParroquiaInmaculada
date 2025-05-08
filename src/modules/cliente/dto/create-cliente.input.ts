@@ -9,10 +9,10 @@ export class CreateClienteInput {
     nombreNino: string;
 
     @Field()
-    padrinosNombres: string; // aquí se escriben por ejemplo: "Carlos y María"
+    padrinos: string; // aquí se escriben por ejemplo: "Carlos y María"
 
     @Field()
-    sacerdoteId: string;
+    sacerdote: string;
 
     @Field({ nullable: true })
     fechasPlaticas?: string;
