@@ -22,4 +22,8 @@ export class UserService {
         const user = await this.userRepository.findOne({ where: { correo } });
         return user ?? undefined;
     }
+
+    async findAll(): Promise<User[]> {
+        return this.userRepository.find();
+    }
 }

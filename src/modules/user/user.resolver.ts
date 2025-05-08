@@ -1,9 +1,12 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { User } from './entity/user.entity';
+import { User, UserRole } from './entity/user.entity';
 import { UserService } from './user.service';
 import { AuthService } from 'src/auth/auth.service';
 import { CreateUserInput } from './dto/create-user.input';
-import { UnauthorizedException } from '@nestjs/common';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Roles } from 'src/auth/roles.decorator';
+import { RolesGuard } from 'src/auth/roles.guard';
 
 
 @Resolver(() => User)
@@ -37,5 +40,12 @@ export class UserResolver {
 
         const token = await this.authService.login(user);
         return token.access_token;
+    }
+
+    @UseGuards(GqlAuthGuard, RolesGuard)
+    @Query(() => [User], { name: 'findAllUsers' })
+    @Roles(UserRole.PARROCO)
+    async findAll(): Promise<User[]> {
+        return this.userService.findAll();
     }
 }
