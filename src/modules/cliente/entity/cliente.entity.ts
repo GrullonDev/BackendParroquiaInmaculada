@@ -22,11 +22,11 @@ export class Cliente {
     @Column({ nullable: true })
     fechasPlaticas: string;
 
-    @Field(() => Padrino)
+    @Field(() => Padrino, { nullable: true })
     @ManyToOne(() => Padrino, padrino => padrino.clientes, { eager: true })
     padrino: Padrino;
 
-    @Field(() => Sacerdote)
+    @Field(() => Sacerdote, { nullable: true })
     @ManyToOne(() => Sacerdote, sacerdote => sacerdote.clientes, { eager: true })
     @JoinColumn({ name: 'sacerdote_id' })
     sacerdote: Sacerdote;
