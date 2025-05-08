@@ -17,6 +17,7 @@ export class Sacerdote {
     @Column({ default: 0 })
     cantidad: number;
 
+    @Field(() => [Cliente], { nullable: true })
     @OneToMany(() => Cliente, cliente => cliente.sacerdote)
     clientes: Cliente[];
 }
