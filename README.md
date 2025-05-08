@@ -31,3 +31,9 @@ Este proyecto utiliza Apollo Server con NestJS para servir una API GraphQL.
 
 - Playground: disponible en `http://localhost:3000/graphql`
 - El esquema es generado automáticamente (`schema.gql` en la raíz de `src`)
+
+## 🔐 Autenticación
+
+- Se utiliza JWT para proteger las rutas privadas.
+- Los roles disponibles son: `PARROCO`, `VICARIO`, `NOTARIO`, `VICE_CANCILLER`.
+- Las mutaciones `createUser` y `login` están disponibles en el esquema GraphQL.
