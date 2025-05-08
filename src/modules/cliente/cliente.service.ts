@@ -1,19 +1,64 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cliente } from './entity/cliente.entity';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { CreateClienteInput } from './dto/create-cliente.input';
+import { Padrino } from '../padrino/entity/padrino.entity';
+import { Sacerdote } from '../sacerdote/entity/sacerdote.entity';
 
 @Injectable()
 export class ClienteService {
     constructor(
         @InjectRepository(Cliente)
         private clienteRepo: Repository<Cliente>,
+
+        @InjectRepository(Padrino)
+        private padrinoRepo: Repository<Padrino>,
+
+        @InjectRepository(Sacerdote)
+        private sacerdoteRepo: Repository<Sacerdote>,
     ) { }
 
-    create(input: CreateClienteInput): Promise<Cliente> {
-        const nuevo = this.clienteRepo.create(input);
-        return this.clienteRepo.save(nuevo);
+    async create(input: CreateClienteInput): Promise<Cliente> {
+        const nombresSeparados = input.padrinosNombres.split(/\s+y\s+/); // separa por " y "
+
+        // Inserta cada padrino si no existe
+        for (const nombre of nombresSeparados) {
+            const padrinoExistente = await this.padrinoRepo.findOne({ where: { nombre } });
+
+            if (!padrinoExistente) {
+                const nuevoPadrino = this.padrinoRepo.create({ nombre, cantidad: 1 });
+                await this.padrinoRepo.save(nuevoPadrino);
+            } else {
+                padrinoExistente.cantidad += 1;
+                await this.padrinoRepo.save(padrinoExistente);
+            }
+        }
+
+        // Relacionar solo con el primer padrino por simplicidad
+        const padrinoPrincipal = await this.padrinoRepo.findOne({ where: { nombre: nombresSeparados[0] } });
+        const sacerdote = await this.sacerdoteRepo.findOne({ where: { id: input.sacerdoteId } });
+
+        if (!padrinoPrincipal) {
+            throw new Error('Padrino no encontrado'); // puedes usar BadRequestException si prefieres
+        }
+
+        if (!sacerdote) {
+            throw new Error('Sacerdote no encontrado');
+        }
+
+        const nuevoCliente: DeepPartial<Cliente> = {
+            cui: input.cui,
+            nombreNino: input.nombreNino,
+            fechasPlaticas: input.fechasPlaticas,
+            parroquia: input.parroquia,
+            direccion: input.direccion,
+            firmaSacerdote: input.firmaSacerdote,
+            padrino: padrinoPrincipal,
+            sacerdote: sacerdote,
+        };
+
+        return this.clienteRepo.save(this.clienteRepo.create(nuevoCliente));
     }
 
     findAll(): Promise<Cliente[]> {

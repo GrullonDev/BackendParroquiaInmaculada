@@ -9,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { ClienteModule } from './modules/cliente/cliente.module';
 import { PadrinoModule } from './modules/padrino/padrino.module';
+import { SacerdoteModule } from './modules/sacerdote/sacerdote.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { PadrinoModule } from './modules/padrino/padrino.module';
     AuthModule,
     ClienteModule,
     PadrinoModule,
+    SacerdoteModule,
   ],
 })
 

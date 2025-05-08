@@ -1,5 +1,7 @@
 import { Field, ObjectType, ID } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Padrino } from 'src/modules/padrino/entity/padrino.entity';
+import { Sacerdote } from 'src/modules/sacerdote/entity/sacerdote.entity';
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn, ManyToOne } from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -16,17 +18,18 @@ export class Cliente {
     @Column()
     nombreNino: string;
 
-    @Field()
-    @Column()
-    padrinos: string;
-
     @Field({ nullable: true })
     @Column({ nullable: true })
     fechasPlaticas: string;
 
-    @Field({ nullable: true })
-    @Column({ nullable: true })
-    sacerdote: string;
+    @Field(() => Padrino)
+    @ManyToOne(() => Padrino, padrino => padrino.clientes, { eager: true })
+    padrino: Padrino;
+
+    @Field(() => Sacerdote)
+    @ManyToOne(() => Sacerdote, sacerdote => sacerdote.clientes, { eager: true })
+    @JoinColumn({ name: 'sacerdote_id' })
+    sacerdote: Sacerdote;
 
     @Field({ nullable: true })
     @Column({ nullable: true })
