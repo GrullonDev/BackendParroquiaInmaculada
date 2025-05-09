@@ -4,12 +4,12 @@ Este proyecto contiene el backend para el sistema de gestión de la Iglesia, des
 
 ## 🚀 Tecnologías
 
-- ✅ NestJS
-- ✅ GraphQL (Apollo Server)
-- ✅ PostgreSQL
-- ✅ TypeORM
-- ✅ JWT (autenticación por roles)
-- ✅ Docker y Docker Compose
+- NestJS
+- GraphQL (Apollo Server)
+- PostgreSQL
+- TypeORM
+- JWT (autenticación por roles)
+- Docker y Docker Compose
 
 ## 🧪 Entornos
 
@@ -94,6 +94,6 @@ src/
 
 Para cualquier consulta o sugerencia, contacta a [prosystem155@gmail.com](mailto:prosystem155@gmail.com)
 
-Jorge Luis Grullón Marroquín
-🖥 Desarrollador backend & frontend
-(Portafolio)[https://jorgegrullondev.com]
+- Jorge Luis Grullón Marroquín
+- 🖥 Desarrollador backend & frontend
+- (Portafolio)[https://jorgegrullondev.com]
