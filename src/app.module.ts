@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ClienteModule } from './modules/cliente/cliente.module';
 import { PadrinoModule } from './modules/padrino/padrino.module';
 import { SacerdoteModule } from './modules/sacerdote/sacerdote.module';
+import { DocumentoModule } from './modules/documento/documento.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { SacerdoteModule } from './modules/sacerdote/sacerdote.module';
     ClienteModule,
     PadrinoModule,
     SacerdoteModule,
+    DocumentoModule,
   ],
 })
 
