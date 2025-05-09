@@ -11,6 +11,7 @@ import { ClienteModule } from './modules/cliente/cliente.module';
 import { PadrinoModule } from './modules/padrino/padrino.module';
 import { SacerdoteModule } from './modules/sacerdote/sacerdote.module';
 import { DocumentoModule } from './modules/documento/documento.module';
+import { ReporteModule } from './modules/reporte/reporte.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { DocumentoModule } from './modules/documento/documento.module';
     PadrinoModule,
     SacerdoteModule,
     DocumentoModule,
+    ReporteModule,
   ],
 })
 
