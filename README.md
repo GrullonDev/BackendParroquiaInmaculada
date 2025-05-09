@@ -96,4 +96,4 @@ Para cualquier consulta o sugerencia, contacta a [prosystem155@gmail.com](mailto
 
 - Jorge Luis Grullón Marroquín
 - 🖥 Desarrollador backend & frontend
-- (Portafolio)[https://jorgegrullondev.com]
+- [Portafolio](https://jorgegrullondev.com)
