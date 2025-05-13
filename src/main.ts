@@ -1,14 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import * as express from 'express';
+
+const server = express();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
   app.enableCors();
-
-  const port = process.env.PORT || 3000;
-  await app.listen(port, '0.0.0.0');
-
-  console.log(`🚀 Servidor corriendo en http://localhost:${port}/graphql`);
+  await app.init();
 }
 
 bootstrap();
+
+export const api = server;
