@@ -28,7 +28,7 @@ export class User {
     @Column({ unique: true })
     correo: string;
 
-    @Field(() => UserRole)
+    @Field(() => UserRole, { nullable: true })
     @Column({ type: 'enum', enum: UserRole })
     rol: UserRole;
 

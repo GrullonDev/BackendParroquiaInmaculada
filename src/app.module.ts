@@ -32,8 +32,9 @@ import { ReporteModule } from './modules/reporte/reporte.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
-      playground: process.env.NODE_ENV !== 'production',
+      playground: true, // o usa process.env.NODE_ENV !== 'production'
       introspection: true,
+      path: '/graphql', // 👈 Esto es obligatorio en Firebase
     }),
 
     UserModule,

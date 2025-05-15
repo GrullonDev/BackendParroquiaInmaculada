@@ -1,13 +1,12 @@
-# Etapa de desarrollo
-FROM node:20
+# Etapa de construcción
+FROM node:20-alpine AS builder
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
 
 COPY . .
-
 RUN npm run build
 
 # Etapa final para producción

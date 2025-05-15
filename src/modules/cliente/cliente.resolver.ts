@@ -18,6 +18,7 @@ export class ClienteResolver {
     async createCliente(
         @Args('input') input: CreateClienteInput,
     ): Promise<Cliente> {
+        console.log('[BACKEND] Cliente recibido:', input);
         return this.clienteService.create(input);
     }
 
