@@ -14,7 +14,7 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY funciones/package*.json ./
+COPY functions/package*.json ./
 RUN npm install --development
 
 # ⛔️ ERROR AQUÍ: Estás buscando dist fuera de functions
