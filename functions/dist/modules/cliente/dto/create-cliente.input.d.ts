@@ -1,10 +1,11 @@
 export declare class CreateClienteInput {
-    cui: string;
+    noFolioLibro: string;
     nombreNino: string;
+    fechaNacimiento: string;
+    padre: string;
+    madre: string;
     padrinos: string;
     sacerdote: string;
-    fechasPlaticas?: string;
     parroquia?: string;
-    direccion?: string;
     firmaSacerdote?: string;
 }

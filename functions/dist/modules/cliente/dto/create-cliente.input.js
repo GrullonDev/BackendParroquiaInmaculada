@@ -17,11 +17,23 @@ var CreateClienteInput = (function () {
     __decorate([
         (0, graphql_1.Field)(),
         __metadata("design:type", String)
-    ], CreateClienteInput.prototype, "cui", void 0);
+    ], CreateClienteInput.prototype, "noFolioLibro", void 0);
     __decorate([
         (0, graphql_1.Field)(),
         __metadata("design:type", String)
     ], CreateClienteInput.prototype, "nombreNino", void 0);
+    __decorate([
+        (0, graphql_1.Field)(),
+        __metadata("design:type", String)
+    ], CreateClienteInput.prototype, "fechaNacimiento", void 0);
+    __decorate([
+        (0, graphql_1.Field)(),
+        __metadata("design:type", String)
+    ], CreateClienteInput.prototype, "padre", void 0);
+    __decorate([
+        (0, graphql_1.Field)(),
+        __metadata("design:type", String)
+    ], CreateClienteInput.prototype, "madre", void 0);
     __decorate([
         (0, graphql_1.Field)(),
         __metadata("design:type", String)
@@ -33,15 +45,7 @@ var CreateClienteInput = (function () {
     __decorate([
         (0, graphql_1.Field)({ nullable: true }),
         __metadata("design:type", String)
-    ], CreateClienteInput.prototype, "fechasPlaticas", void 0);
-    __decorate([
-        (0, graphql_1.Field)({ nullable: true }),
-        __metadata("design:type", String)
     ], CreateClienteInput.prototype, "parroquia", void 0);
-    __decorate([
-        (0, graphql_1.Field)({ nullable: true }),
-        __metadata("design:type", String)
-    ], CreateClienteInput.prototype, "direccion", void 0);
     __decorate([
         (0, graphql_1.Field)({ nullable: true }),
         __metadata("design:type", String)

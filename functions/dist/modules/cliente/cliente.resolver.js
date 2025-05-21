@@ -77,10 +77,10 @@ var ClienteResolver = (function () {
             });
         });
     };
-    ClienteResolver.prototype.findClienteByCui = function (cui) {
+    ClienteResolver.prototype.findClienteByNoFolioLibro = function (noFolioLibro) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2, this.clienteService.findByCui(cui)];
+                return [2, this.clienteService.findByNoFolioLibro(noFolioLibro)];
             });
         });
     };
@@ -102,11 +102,11 @@ var ClienteResolver = (function () {
     __decorate([
         (0, graphql_1.Query)(function () { return cliente_entity_1.Cliente; }, { nullable: true }),
         (0, roles_decorator_1.Roles)(user_entity_1.UserRole.PARROCO),
-        __param(0, (0, graphql_1.Args)('cui')),
+        __param(0, (0, graphql_1.Args)('noFolioLibro')),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [String]),
         __metadata("design:returntype", Promise)
-    ], ClienteResolver.prototype, "findClienteByCui", null);
+    ], ClienteResolver.prototype, "findClienteByNoFolioLibro", null);
     ClienteResolver = __decorate([
         (0, common_1.UseGuards)(jwt_auth_guard_1.GqlAuthGuard, roles_guard_1.RolesGuard),
         (0, graphql_1.Resolver)(function () { return cliente_entity_1.Cliente; }),

@@ -64,11 +64,12 @@ export class ClienteService {
         }
 
         const nuevoCliente: DeepPartial<Cliente> = {
-            cui: input.cui,
+            noFolioLibro: input.noFolioLibro,
             nombreNino: input.nombreNino,
-            fechasPlaticas: input.fechasPlaticas,
+            fechaNacimiento: input.fechaNacimiento,
+            padre: input.padre,
+            madre: input.madre,
             parroquia: input.parroquia,
-            direccion: input.direccion,
             firmaSacerdote: input.firmaSacerdote,
             padrino: padrinoPrincipal,
             sacerdote: sacerdote,
@@ -81,7 +82,7 @@ export class ClienteService {
         return this.clienteRepo.find();
     }
 
-    async findByCui(cui: string): Promise<Cliente | null> {
-        return this.clienteRepo.findOne({ where: { cui } });
+    async findByNoFolioLibro(noFolioLibro: string): Promise<Cliente | null> {
+        return this.clienteRepo.findOne({ where: { noFolioLibro } });
     }
 }

@@ -12,15 +12,23 @@ export class Cliente {
 
     @Field()
     @Column({ unique: true })
-    cui: string;
+    noFolioLibro: string;
 
     @Field()
     @Column()
     nombreNino: string;
 
-    @Field({ nullable: true })
-    @Column({ nullable: true })
-    fechasPlaticas: string;
+    @Field()
+    @Column()
+    fechaNacimiento: string;
+
+    @Field()
+    @Column()
+    padre: string;
+
+    @Field()
+    @Column()
+    madre: string;
 
     @Field(() => Padrino, { nullable: true })
     @ManyToOne(() => Padrino, padrino => padrino.clientes, { eager: true })
@@ -34,10 +42,6 @@ export class Cliente {
     @Field({ nullable: true })
     @Column({ nullable: true })
     parroquia: string;
-
-    @Field({ nullable: true })
-    @Column({ nullable: true })
-    direccion: string;
 
     @Field({ nullable: true })
     @Column({ nullable: true })

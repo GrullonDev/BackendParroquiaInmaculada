@@ -122,11 +122,12 @@ var ClienteService = (function () {
                             throw new Error('Sacerdote no encontrado');
                         }
                         nuevoCliente = {
-                            cui: input.cui,
+                            noFolioLibro: input.noFolioLibro,
                             nombreNino: input.nombreNino,
-                            fechasPlaticas: input.fechasPlaticas,
+                            fechaNacimiento: input.fechaNacimiento,
+                            padre: input.padre,
+                            madre: input.madre,
                             parroquia: input.parroquia,
-                            direccion: input.direccion,
                             firmaSacerdote: input.firmaSacerdote,
                             padrino: padrinoPrincipal,
                             sacerdote: sacerdote,
@@ -139,10 +140,10 @@ var ClienteService = (function () {
     ClienteService.prototype.findAll = function () {
         return this.clienteRepo.find();
     };
-    ClienteService.prototype.findByCui = function (cui) {
+    ClienteService.prototype.findByNoFolioLibro = function (noFolioLibro) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2, this.clienteRepo.findOne({ where: { cui: cui } })];
+                return [2, this.clienteRepo.findOne({ where: { noFolioLibro: noFolioLibro } })];
             });
         });
     };

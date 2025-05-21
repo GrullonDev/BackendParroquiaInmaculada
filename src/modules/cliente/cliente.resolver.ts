@@ -30,9 +30,9 @@ export class ClienteResolver {
 
     @Query(() => Cliente, { nullable: true })
     @Roles(UserRole.PARROCO)
-    async findClienteByCui(
-        @Args('cui') cui: string,
+    async findClienteByNoFolioLibro(
+        @Args('noFolioLibro') noFolioLibro: string,
     ): Promise<Cliente | null> {
-        return this.clienteService.findByCui(cui);
+        return this.clienteService.findByNoFolioLibro(noFolioLibro);
     }
 }

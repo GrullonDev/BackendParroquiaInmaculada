@@ -26,17 +26,27 @@ var Cliente = (function () {
         (0, graphql_1.Field)(),
         (0, typeorm_1.Column)({ unique: true }),
         __metadata("design:type", String)
-    ], Cliente.prototype, "cui", void 0);
+    ], Cliente.prototype, "noFolioLibro", void 0);
     __decorate([
         (0, graphql_1.Field)(),
         (0, typeorm_1.Column)(),
         __metadata("design:type", String)
     ], Cliente.prototype, "nombreNino", void 0);
     __decorate([
-        (0, graphql_1.Field)({ nullable: true }),
-        (0, typeorm_1.Column)({ nullable: true }),
+        (0, graphql_1.Field)(),
+        (0, typeorm_1.Column)(),
         __metadata("design:type", String)
-    ], Cliente.prototype, "fechasPlaticas", void 0);
+    ], Cliente.prototype, "fechaNacimiento", void 0);
+    __decorate([
+        (0, graphql_1.Field)(),
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", String)
+    ], Cliente.prototype, "padre", void 0);
+    __decorate([
+        (0, graphql_1.Field)(),
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", String)
+    ], Cliente.prototype, "madre", void 0);
     __decorate([
         (0, graphql_1.Field)(function () { return padrino_entity_1.Padrino; }, { nullable: true }),
         (0, typeorm_1.ManyToOne)(function () { return padrino_entity_1.Padrino; }, function (padrino) { return padrino.clientes; }, { eager: true }),
@@ -53,11 +63,6 @@ var Cliente = (function () {
         (0, typeorm_1.Column)({ nullable: true }),
         __metadata("design:type", String)
     ], Cliente.prototype, "parroquia", void 0);
-    __decorate([
-        (0, graphql_1.Field)({ nullable: true }),
-        (0, typeorm_1.Column)({ nullable: true }),
-        __metadata("design:type", String)
-    ], Cliente.prototype, "direccion", void 0);
     __decorate([
         (0, graphql_1.Field)({ nullable: true }),
         (0, typeorm_1.Column)({ nullable: true }),

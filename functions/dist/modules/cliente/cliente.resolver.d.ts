@@ -6,5 +6,5 @@ export declare class ClienteResolver {
     constructor(clienteService: ClienteService);
     createCliente(input: CreateClienteInput): Promise<Cliente>;
     findAllClientes(): Promise<Cliente[]>;
-    findClienteByCui(cui: string): Promise<Cliente | null>;
+    findClienteByNoFolioLibro(noFolioLibro: string): Promise<Cliente | null>;
 }

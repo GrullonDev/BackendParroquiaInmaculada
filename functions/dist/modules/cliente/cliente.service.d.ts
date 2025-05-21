@@ -10,5 +10,5 @@ export declare class ClienteService {
     constructor(clienteRepo: Repository<Cliente>, padrinoRepo: Repository<Padrino>, sacerdoteRepo: Repository<Sacerdote>);
     create(input: CreateClienteInput): Promise<Cliente>;
     findAll(): Promise<Cliente[]>;
-    findByCui(cui: string): Promise<Cliente | null>;
+    findByNoFolioLibro(noFolioLibro: string): Promise<Cliente | null>;
 }
