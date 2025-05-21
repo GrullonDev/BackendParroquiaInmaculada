@@ -77,7 +77,7 @@ var UserService = (function () {
                     case 0: return [4, bcrypt.hash(input.password, 10)];
                     case 1:
                         hashedPassword = _a.sent();
-                        user = this.userRepository.create(__assign(__assign({}, input), { password: hashedPassword }));
+                        user = this.userRepository.create(__assign(__assign({}, input), { password: hashedPassword, rol: user_entity_1.UserRole.VICE_CANCILLER }));
                         return [2, this.userRepository.save(user)];
                 }
             });

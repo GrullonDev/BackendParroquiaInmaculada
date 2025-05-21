@@ -12,7 +12,7 @@ RUN npm run build
 # Etapa final para producción
 FROM node:20-alpine
 
-WORKDIR /app
+WORKDIR /app/functions
 
 COPY package*.json ./
 RUN npm install --development
