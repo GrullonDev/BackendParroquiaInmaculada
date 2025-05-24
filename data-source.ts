@@ -1,8 +1,8 @@
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 import { Cliente } from './src/modules/cliente/entity/cliente.entity';
-import { Padrino } from 'src/modules/padrino/entity/padrino.entity';
-import { Sacerdote } from 'src/modules/sacerdote/entity/sacerdote.entity';
+import { Padrino } from './src/modules/padrino/entity/padrino.entity';
+import { Sacerdote } from './src/modules/sacerdote/entity/sacerdote.entity';
 // agrega tus otras entidades
 
 dotenv.config({

@@ -3,28 +3,42 @@
 # ------------------------------------------------------
 
 type Cliente {
+  campo34: String
+  campo35: String
+  campo36: String
+  celebrante: String
   createdAt: DateTime!
+  fechaBautismo: String
   fechaNacimiento: String!
   firmaSacerdote: String
   id: ID!
   madre: String!
   noFolioLibro: String!
   nombreNino: String!
+  observaciones: String
   padre: String!
   padrino: Padrino
   parroquia: String
+  partida: String
   sacerdote: Sacerdote
 }
 
 input CreateClienteInput {
+  campo34: String
+  campo35: String
+  campo36: String
+  celebrante: String
+  fechaBautismo: String
   fechaNacimiento: String!
   firmaSacerdote: String
   madre: String!
   noFolioLibro: String!
   nombreNino: String!
+  observaciones: String
   padre: String!
   padrinos: String!
   parroquia: String
+  partida: String
   sacerdote: String!
 }
 
