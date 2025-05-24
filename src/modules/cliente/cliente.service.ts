@@ -71,6 +71,13 @@ export class ClienteService {
             madre: input.madre,
             parroquia: input.parroquia,
             firmaSacerdote: input.firmaSacerdote,
+            fechaBautismo: input.fechaBautismo,
+            partida: input.partida,
+            celebrante: input.celebrante,
+            observaciones: input.observaciones,
+            campo34: input.campo34,
+            campo35: input.campo35,
+            campo36: input.campo36,
             padrino: padrinoPrincipal,
             sacerdote: sacerdote,
         };

@@ -50,4 +50,32 @@ export class Cliente {
     @Field()
     @CreateDateColumn()
     createdAt: Date;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    fechaBautismo: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    partida: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    celebrante: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    observaciones: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    campo34: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    campo35: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    campo36: string;
 }

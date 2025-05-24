@@ -28,4 +28,25 @@ export class CreateClienteInput {
 
     @Field({ nullable: true })
     firmaSacerdote?: string;
+
+    @Field({ nullable: true })
+    fechaBautismo?: string;
+
+    @Field({ nullable: true })
+    partida?: string;
+
+    @Field({ nullable: true })
+    celebrante?: string;
+
+    @Field({ nullable: true })
+    observaciones?: string;
+
+    @Field({ nullable: true })
+    campo34?: string;
+
+    @Field({ nullable: true })
+    campo35?: string;
+
+    @Field({ nullable: true })
+    campo36?: string;
 }
