@@ -14,13 +14,13 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY functions/package*.json ./
-RUN npm install --development
+COPY package*.json ./
+RUN npm install
 
 # ⛔️ ERROR AQUÍ: Estás buscando dist fuera de functions
 # ✅ CORRECTO: Usa la ruta relativa a funciones
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/functions/dist ./functions/dist
 
 EXPOSE 3000
 
-CMD ["node", "dist/main"]
+CMD ["node", "functions/dist/main"]

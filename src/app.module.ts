@@ -12,21 +12,13 @@ import { PadrinoModule } from './modules/padrino/padrino.module';
 import { SacerdoteModule } from './modules/sacerdote/sacerdote.module';
 import { DocumentoModule } from './modules/documento/documento.module';
 import { ReporteModule } from './modules/reporte/reporte.module';
+import typeormConfig from './config/typeorm.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
 
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: +process.env.DB_PORT!,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME,
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(typeormConfig),
 
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

@@ -9,12 +9,15 @@ dotenv.config({
 const config: TypeOrmModuleOptions = {
     type: 'postgres',
     host: process.env.DB_HOST,
-    port: +process.env.DB_PORT!,
+    port: parseInt(process.env.DB_PORT ?? '5432', 10),
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     autoLoadEntities: true,
-    synchronize: true,
+    synchronize: true, // desactiva en producción
+    ssl: {
+        rejectUnauthorized: false,
+    },
 };
 
 export default config;
