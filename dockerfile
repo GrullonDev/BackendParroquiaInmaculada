@@ -17,8 +17,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --omit=dev
 
-COPY --from=builder /app/functions/dist ./functions/dist
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
-CMD ["node", "functions/dist/main"]
+CMD ["node", "dist/main"]
