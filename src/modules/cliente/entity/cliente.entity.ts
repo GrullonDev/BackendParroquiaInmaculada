@@ -7,20 +7,28 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn, M
 @Entity()
 export class Cliente {
     @Field(() => ID)
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn() // ✅ Añadir columna primaria
+    id: number;
 
     @Field()
     @Column({ unique: true })
-    cui: string;
+    noFolioLibro: string;
 
     @Field()
     @Column()
     nombreNino: string;
 
-    @Field({ nullable: true })
-    @Column({ nullable: true })
-    fechasPlaticas: string;
+    @Field()
+    @Column()
+    fechaNacimiento: string;
+
+    @Field()
+    @Column()
+    padre: string;
+
+    @Field()
+    @Column()
+    madre: string;
 
     @Field(() => Padrino, { nullable: true })
     @ManyToOne(() => Padrino, padrino => padrino.clientes, { eager: true })
@@ -37,13 +45,37 @@ export class Cliente {
 
     @Field({ nullable: true })
     @Column({ nullable: true })
-    direccion: string;
-
-    @Field({ nullable: true })
-    @Column({ nullable: true })
     firmaSacerdote: string;
 
     @Field()
     @CreateDateColumn()
     createdAt: Date;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    fechaBautismo: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    partida: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    celebrante: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    observaciones: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    campo34: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    campo35: string;
+
+    @Field({ nullable: true })
+    @Column({ nullable: true })
+    campo36: string;
 }

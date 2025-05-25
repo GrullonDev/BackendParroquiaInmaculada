@@ -13,7 +13,7 @@ export class CreateDocumentoInput {
     observaciones?: string;
 
     @Field()
-    clienteId: string;
+    clienteId: number;
 
     @Field()
     sacerdoteNombre: string;
