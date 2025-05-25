@@ -58,7 +58,7 @@ scalar DateTime
 type Documento {
   id: ID!
   tipo: TipoDocumento!
-  fechaEmision: String!
+  fechaEmision: DateTime!
   observaciones: String
   cliente: Cliente!
   sacerdote: Sacerdote!
@@ -142,6 +142,6 @@ input CreateDocumentoInput {
   tipo: TipoDocumento!
   fechaEmision: String!
   observaciones: String
-  clienteId: String!
+  clienteId: Float!
   sacerdoteNombre: String!
 }
