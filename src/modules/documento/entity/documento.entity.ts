@@ -28,7 +28,7 @@ export class Documento {
     tipo: TipoDocumento;
 
     @Field()
-    @Column()
+    @Column({ type: 'timestamp', nullable: true })
     fechaEmision: Date;
 
     @Field({ nullable: true })
