@@ -6,8 +6,8 @@ import { Cliente } from '../../cliente/entity/cliente.entity';
 @Entity()
 export class Sacerdote {
     @Field(() => ID)
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn() // ✅ Añadir columna primaria
+    id: number;
 
     @Field()
     @Column()

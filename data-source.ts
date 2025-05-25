@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import { Cliente } from './src/modules/cliente/entity/cliente.entity';
 import { Padrino } from './src/modules/padrino/entity/padrino.entity';
 import { Sacerdote } from './src/modules/sacerdote/entity/sacerdote.entity';
+import { Documento } from 'src/modules/documento/entity/documento.entity';
 // agrega tus otras entidades
 
 dotenv.config({
@@ -18,6 +19,6 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     ssl: { rejectUnauthorized: false },
     synchronize: false,
-    entities: [Cliente, Padrino, Sacerdote],
+    entities: [Cliente, Padrino, Sacerdote, Documento],
     migrations: ['src/database/migrations/*.ts'],
 });

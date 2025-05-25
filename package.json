@@ -21,7 +21,7 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "typeorm:migration:generate": "npm run typeorm -- migration:generate src/database/migrations/AddCamposConstanciaToCliente -d ./data-source.ts",
     "typeorm:migration:run": "npm run typeorm -- migration:run -d ./data-source.ts",
-    "import:clientes": "ts-node -r tsconfig-paths/register scripts/import-clientes.ts"
+    "import:documents": "ts-node -r tsconfig-paths/register scripts/import-documents.ts"
   },
   "dependencies": {
     "@nestjs/apollo": "^13.1.0",

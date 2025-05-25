@@ -20,8 +20,8 @@ registerEnumType(TipoDocumento, {
 @Entity()
 export class Documento {
     @Field(() => ID)
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: number; // ← agregado
 
     @Field(() => TipoDocumento)
     @Column({ type: 'enum', enum: TipoDocumento })
@@ -29,7 +29,7 @@ export class Documento {
 
     @Field()
     @Column()
-    fechaEmision: string;
+    fechaEmision: Date;
 
     @Field({ nullable: true })
     @Column({ nullable: true })

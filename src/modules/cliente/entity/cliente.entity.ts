@@ -7,8 +7,8 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn, M
 @Entity()
 export class Cliente {
     @Field(() => ID)
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn() // ✅ Añadir columna primaria
+    id: number;
 
     @Field()
     @Column({ unique: true })
