@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15
-    container_name: iglesia_postgres
-    restart: always
-    environment:
-      POSTGRES_USER: iglesia_user
-      POSTGRES_PASSWORD: iglesia_pass
-      POSTGRES_DB: iglesia_db
-    ports:
-      - '5432:5432'
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+  # postgres:
+  #   image: postgres:15
+  #   container_name: iglesia_postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: iglesia_user
+  #     POSTGRES_PASSWORD: iglesia_pass
+  #     POSTGRES_DB: iglesia_db
+  #   ports:
+  #     - '5432:5432'
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
 
   app:
     build:
@@ -21,10 +21,9 @@ services:
     container_name: iglesia_app
     ports:
       - '3000:3000'
-    depends_on:
-      - postgres
+    # depends_on:
+    #   - postgres
     env_file:
-      - .env.development
-
-volumes:
-  pgdata:
+      - .env.production
+# volumes:
+#   pgdata:

@@ -15,10 +15,8 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm install --omit=dev
 
-# ⛔️ ERROR AQUÍ: Estás buscando dist fuera de functions
-# ✅ CORRECTO: Usa la ruta relativa a funciones
 COPY --from=builder /app/functions/dist ./functions/dist
 
 EXPOSE 3000
