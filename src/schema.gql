@@ -1,0 +1,147 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  nombre: String!
+  correo: String!
+  rol: UserRole
+}
+
+enum UserRole {
+  PARROCO
+  VICARIO
+  NOTARIO
+  VICE_CANCILLER
+}
+
+type Padrino {
+  id: ID!
+  nombre: String!
+  cantidad: Int!
+}
+
+type Sacerdote {
+  id: ID!
+  nombreCompleto: String!
+  cantidad: Int!
+  clientes: [Cliente!]
+}
+
+type Cliente {
+  id: ID!
+  noFolioLibro: String!
+  nombreNino: String!
+  fechaNacimiento: String!
+  padre: String!
+  madre: String!
+  padrino: Padrino
+  sacerdote: Sacerdote
+  parroquia: String
+  firmaSacerdote: String
+  createdAt: DateTime!
+  fechaBautismo: String
+  partida: String
+  celebrante: String
+  observaciones: String
+  campo34: String
+  campo35: String
+  campo36: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Documento {
+  id: ID!
+  tipo: TipoDocumento!
+  fechaEmision: String!
+  observaciones: String
+  cliente: Cliente!
+  sacerdote: Sacerdote!
+  creadoEn: DateTime!
+}
+
+"""Tipos de documento eclesiástico"""
+enum TipoDocumento {
+  BAUTIZO
+  COMUNION
+  CONFIRMACION
+  MATRIMONIO
+}
+
+type DocumentosPorAnioOutput {
+  anio: Int!
+  bautizos: Int!
+  comuniones: Int!
+  confirmaciones: Int!
+  matrimonios: Int!
+}
+
+type DocumentosPorMesOutput {
+  anio: Int!
+  mes: Int!
+  bautizos: Int!
+  comuniones: Int!
+  confirmaciones: Int!
+  matrimonios: Int!
+}
+
+type Query {
+  hello: String!
+  findAllUsers: [User!]!
+  findAllClientes: [Cliente!]!
+  findClienteByNoFolioLibro(noFolioLibro: String!): Cliente
+  findAllSacerdotes: [Sacerdote!]!
+  findAllDocumentos(tipo: String, desde: String, hasta: String): [Documento!]!
+  countDocumentosByTipo: [DocumentosPorAnioOutput!]!
+  countDocumentosPorMes: [DocumentosPorMesOutput!]!
+  countTotalDocumentos: Int!
+  topSacerdotesFirmantes: [Sacerdote!]!
+  topPadrinosConMasClientes: [Padrino!]!
+  getRangoAniosDisponibles: [Int!]!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  login(correo: String!, password: String!): String!
+  createCliente(input: CreateClienteInput!): Cliente!
+  createDocumento(input: CreateDocumentoInput!): Documento!
+}
+
+input CreateUserInput {
+  nombre: String!
+  correo: String!
+  password: String!
+  rol: UserRole!
+}
+
+input CreateClienteInput {
+  noFolioLibro: String!
+  nombreNino: String!
+  fechaNacimiento: String!
+  padre: String!
+  madre: String!
+  padrinos: String!
+  sacerdote: String!
+  parroquia: String
+  firmaSacerdote: String
+  fechaBautismo: String
+  partida: String
+  celebrante: String
+  observaciones: String
+  campo34: String
+  campo35: String
+  campo36: String
+}
+
+input CreateDocumentoInput {
+  tipo: TipoDocumento!
+  fechaEmision: String!
+  observaciones: String
+  clienteId: String!
+  sacerdoteNombre: String!
+}

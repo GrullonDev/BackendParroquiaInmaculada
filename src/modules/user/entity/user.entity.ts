@@ -29,7 +29,11 @@ export class User {
     correo: string;
 
     @Field(() => UserRole, { nullable: true })
-    @Column({ type: 'enum', enum: UserRole })
+    @Column({
+        type: 'enum',
+        enum: UserRole,
+        nullable: true, // 👈 importante para TypeORM también
+    })
     rol: UserRole;
 
     @Column()
