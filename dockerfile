@@ -3,27 +3,29 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Instala todas las dependencias (incluyendo @nestjs/cli)
+# Instala dependencias y CLI
 COPY package*.json ./
 RUN npm install
 
-# Copia el código y compila
+# Copia código fuente
 COPY . .
-RUN npm run build
 
-# Etapa final para producción
+# Compila la aplicación NestJS
+RUN npx nest build
+
+# Etapa final
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Solo dependencias necesarias para producción
+# Copia solo lo necesario para producción
 COPY package*.json ./
 RUN npm install --omit=dev
 
-# Copia los archivos ya compilados
+# Copia archivos compilados
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
-# Comando de arranque
+# Comando para iniciar el backend
 CMD ["node", "dist/main"]
