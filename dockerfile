@@ -22,9 +22,9 @@ RUN npm install --omit=dev
 # Copiamos el código compilado
 COPY --from=builder /app/dist ./dist
 
-HEALTHCHECK --interval=10s --timeout=3s --start-period=10s CMD wget --no-verbose --tries=1 --spider http://localhost:10000/graphql || exit 1
+EXPOSE 3000
 
-EXPOSE 10000
+HEALTHCHECK --interval=10s --timeout=3s --start-period=10s CMD wget --no-verbose --tries=1 --spider http://localhost:3000/graphql || exit 1
 
 # Ejecutamos el archivo principal
 CMD ["node", "dist/main"]
