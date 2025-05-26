@@ -5,15 +5,15 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class SacerdoteService {
-    constructor(
-        @InjectRepository(Sacerdote)
-        private sacerdoteRepo: Repository<Sacerdote>,
-    ) { }
+  constructor(
+    @InjectRepository(Sacerdote)
+    private sacerdoteRepo: Repository<Sacerdote>,
+  ) {}
 
-    async findAll(): Promise<Sacerdote[]> {
-        return this.sacerdoteRepo.find({
-            relations: ['clientes'],
-            order: { cantidad: 'DESC' },
-        });
-    }
+  async findAll(): Promise<Sacerdote[]> {
+    return this.sacerdoteRepo.find({
+      relations: ['clientes'],
+      order: { cantidad: 'DESC' },
+    });
+  }
 }

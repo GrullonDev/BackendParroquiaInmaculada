@@ -5,18 +5,18 @@ import { Cliente } from '../../cliente/entity/cliente.entity';
 @ObjectType()
 @Entity()
 export class Padrino {
-    @Field(() => ID)
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @Field(() => ID)
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Field()
-    @Column()
-    nombre: string;
+  @Field()
+  @Column()
+  nombre: string;
 
-    @Field(() => Int)
-    @Column({ default: 0 })
-    cantidad: number;
+  @Field(() => Int)
+  @Column({ default: 0 })
+  cantidad: number;
 
-    @OneToMany(() => Cliente, cliente => cliente.padrino)
-    clientes: Cliente[];
+  @OneToMany(() => Cliente, (cliente) => cliente.padrino)
+  clientes: Cliente[];
 }

@@ -7,27 +7,27 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UserService {
-    constructor(
-        @InjectRepository(User)
-        private readonly userRepository: Repository<User>,
-    ) { }
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
 
-    async create(input: CreateUserInput): Promise<User> {
-        const hashedPassword = await bcrypt.hash(input.password, 10);
-        const user = this.userRepository.create({
-            ...input,
-            password: hashedPassword,
-            rol: UserRole.VICE_CANCILLER
-        });
-        return this.userRepository.save(user);
-    }
+  async create(input: CreateUserInput): Promise<User> {
+    const hashedPassword = await bcrypt.hash(input.password, 10);
+    const user = this.userRepository.create({
+      ...input,
+      password: hashedPassword,
+      rol: UserRole.VICE_CANCILLER,
+    });
+    return this.userRepository.save(user);
+  }
 
-    async findByCorreo(correo: string): Promise<User | undefined> {
-        const user = await this.userRepository.findOne({ where: { correo } });
-        return user ?? undefined;
-    }
+  async findByCorreo(correo: string): Promise<User | undefined> {
+    const user = await this.userRepository.findOne({ where: { correo } });
+    return user ?? undefined;
+  }
 
-    async findAll(): Promise<User[]> {
-        return this.userRepository.find();
-    }
+  async findAll(): Promise<User[]> {
+    return this.userRepository.find();
+  }
 }

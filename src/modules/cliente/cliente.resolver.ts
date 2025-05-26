@@ -11,28 +11,28 @@ import { UserRole } from '../user/entity/user.entity';
 @UseGuards(GqlAuthGuard, RolesGuard)
 @Resolver(() => Cliente)
 export class ClienteResolver {
-    constructor(private readonly clienteService: ClienteService) { }
+  constructor(private readonly clienteService: ClienteService) {}
 
-    @Mutation(() => Cliente)
-    @Roles(UserRole.PARROCO)
-    async createCliente(
-        @Args('input') input: CreateClienteInput,
-    ): Promise<Cliente> {
-        console.log('[BACKEND] Cliente recibido:', input);
-        return this.clienteService.create(input);
-    }
+  @Mutation(() => Cliente)
+  @Roles(UserRole.PARROCO)
+  async createCliente(
+    @Args('input') input: CreateClienteInput,
+  ): Promise<Cliente> {
+    console.log('[BACKEND] Cliente recibido:', input);
+    return this.clienteService.create(input);
+  }
 
-    @Query(() => [Cliente])
-    @Roles(UserRole.PARROCO)
-    async findAllClientes(): Promise<Cliente[]> {
-        return this.clienteService.findAll();
-    }
+  @Query(() => [Cliente])
+  @Roles(UserRole.PARROCO)
+  async findAllClientes(): Promise<Cliente[]> {
+    return this.clienteService.findAll();
+  }
 
-    @Query(() => Cliente, { nullable: true })
-    @Roles(UserRole.PARROCO)
-    async findClienteByNoFolioLibro(
-        @Args('noFolioLibro') noFolioLibro: string,
-    ): Promise<Cliente | null> {
-        return this.clienteService.findByNoFolioLibro(noFolioLibro);
-    }
+  @Query(() => Cliente, { nullable: true })
+  @Roles(UserRole.PARROCO)
+  async findClienteByNoFolioLibro(
+    @Args('noFolioLibro') noFolioLibro: string,
+  ): Promise<Cliente | null> {
+    return this.clienteService.findByNoFolioLibro(noFolioLibro);
+  }
 }

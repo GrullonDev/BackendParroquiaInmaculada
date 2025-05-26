@@ -9,62 +9,70 @@ import { DocumentosPorAnioOutput } from './dto/documento-summary.output';
 import { DocumentosPorMesOutput } from './dto/documento-summary-by-mes.output';
 
 interface DocumentoFilter {
-    tipo?: TipoDocumento;
-    desde?: string;
-    hasta?: string;
+  tipo?: TipoDocumento;
+  desde?: string;
+  hasta?: string;
 }
 
 @Injectable()
 export class DocumentoService {
-    constructor(
-        @InjectRepository(Documento) private readonly documentoRepo: Repository<Documento>,
-        @InjectRepository(Cliente) private readonly clienteRepo: Repository<Cliente>,
-        @InjectRepository(Sacerdote) private readonly sacerdoteRepo: Repository<Sacerdote>,
-        private readonly entityManager: EntityManager, // 👈 inyección directa
-    ) { }
+  constructor(
+    @InjectRepository(Documento)
+    private readonly documentoRepo: Repository<Documento>,
+    @InjectRepository(Cliente)
+    private readonly clienteRepo: Repository<Cliente>,
+    @InjectRepository(Sacerdote)
+    private readonly sacerdoteRepo: Repository<Sacerdote>,
+    private readonly entityManager: EntityManager, // 👈 inyección directa
+  ) {}
 
-    async create(input: CreateDocumentoInput): Promise<Documento> {
-        const cliente = await this.clienteRepo.findOneBy({ id: input.clienteId });
-        if (!cliente) throw new Error('Cliente no encontrado');
+  async create(input: CreateDocumentoInput): Promise<Documento> {
+    const cliente = await this.clienteRepo.findOneBy({ id: input.clienteId });
+    if (!cliente) throw new Error('Cliente no encontrado');
 
-        let sacerdote = await this.sacerdoteRepo.findOneBy({ nombreCompleto: input.sacerdoteNombre });
-        if (!sacerdote) {
-            sacerdote = this.sacerdoteRepo.create({ nombreCompleto: input.sacerdoteNombre, cantidad: 1 });
-        } else {
-            sacerdote.cantidad += 1;
-        }
-        await this.sacerdoteRepo.save(sacerdote);
+    let sacerdote = await this.sacerdoteRepo.findOneBy({
+      nombreCompleto: input.sacerdoteNombre,
+    });
+    if (!sacerdote) {
+      sacerdote = this.sacerdoteRepo.create({
+        nombreCompleto: input.sacerdoteNombre,
+        cantidad: 1,
+      });
+    } else {
+      sacerdote.cantidad += 1;
+    }
+    await this.sacerdoteRepo.save(sacerdote);
 
-        const documento = this.documentoRepo.create({
-            tipo: input.tipo,
-            fechaEmision: input.fechaEmision,
-            observaciones: input.observaciones,
-            cliente,
-            sacerdote,
-        });
+    const documento = this.documentoRepo.create({
+      tipo: input.tipo,
+      fechaEmision: input.fechaEmision,
+      observaciones: input.observaciones,
+      cliente,
+      sacerdote,
+    });
 
-        return this.documentoRepo.save(documento);
+    return this.documentoRepo.save(documento);
+  }
+
+  async findAll(filter: DocumentoFilter): Promise<Documento[]> {
+    const where: any = {};
+
+    if (filter.tipo) {
+      where.tipo = filter.tipo;
     }
 
-    async findAll(filter: DocumentoFilter): Promise<Documento[]> {
-        const where: any = {};
-
-        if (filter.tipo) {
-            where.tipo = filter.tipo;
-        }
-
-        if (filter.desde && filter.hasta) {
-            where.fechaEmision = Between(filter.desde, filter.hasta);
-        }
-
-        return this.documentoRepo.find({
-            where,
-            order: { fechaEmision: 'DESC' },
-        });
+    if (filter.desde && filter.hasta) {
+      where.fechaEmision = Between(filter.desde, filter.hasta);
     }
 
-    async countDocumentosByTipo(): Promise<DocumentosPorAnioOutput[]> {
-        const rawData = await this.entityManager.query(`
+    return this.documentoRepo.find({
+      where,
+      order: { fechaEmision: 'DESC' },
+    });
+  }
+
+  async countDocumentosByTipo(): Promise<DocumentosPorAnioOutput[]> {
+    const rawData = await this.entityManager.query(`
     SELECT 
       EXTRACT(YEAR FROM "fechaEmision"::DATE) AS anio,
       SUM(CASE WHEN tipo = 'BAUTIZO' THEN 1 ELSE 0 END) AS bautizos,
@@ -76,17 +84,17 @@ export class DocumentoService {
     ORDER BY anio ASC;
   `);
 
-        return rawData.map((row: any) => ({
-            anio: parseInt(row.anio),
-            bautizos: parseInt(row.bautizos),
-            comuniones: parseInt(row.comuniones),
-            confirmaciones: parseInt(row.confirmaciones),
-            matrimonios: parseInt(row.matrimonios),
-        }));
-    }
+    return rawData.map((row: any) => ({
+      anio: parseInt(row.anio),
+      bautizos: parseInt(row.bautizos),
+      comuniones: parseInt(row.comuniones),
+      confirmaciones: parseInt(row.confirmaciones),
+      matrimonios: parseInt(row.matrimonios),
+    }));
+  }
 
-    async countDocumentosPorMes(): Promise<DocumentosPorMesOutput[]> {
-        const rawData = await this.entityManager.query(`
+  async countDocumentosPorMes(): Promise<DocumentosPorMesOutput[]> {
+    const rawData = await this.entityManager.query(`
     SELECT 
       EXTRACT(YEAR FROM "fechaEmision"::DATE) AS anio,
       EXTRACT(MONTH FROM "fechaEmision"::DATE) AS mes,
@@ -99,13 +107,13 @@ export class DocumentoService {
     ORDER BY anio ASC, mes ASC;
   `);
 
-        return rawData.map((row: any) => ({
-            anio: parseInt(row.anio),
-            mes: parseInt(row.mes),
-            bautizos: parseInt(row.bautizos),
-            comuniones: parseInt(row.comuniones),
-            confirmaciones: parseInt(row.confirmaciones),
-            matrimonios: parseInt(row.matrimonios),
-        }));
-    }
+    return rawData.map((row: any) => ({
+      anio: parseInt(row.anio),
+      mes: parseInt(row.mes),
+      bautizos: parseInt(row.bautizos),
+      comuniones: parseInt(row.comuniones),
+      confirmaciones: parseInt(row.confirmaciones),
+      matrimonios: parseInt(row.matrimonios),
+    }));
+  }
 }

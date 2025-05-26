@@ -10,11 +10,11 @@ import { UserRole } from '../user/entity/user.entity';
 @UseGuards(GqlAuthGuard, RolesGuard)
 @Resolver(() => Sacerdote)
 export class SacerdoteResolver {
-    constructor(private readonly sacerdoteService: SacerdoteService) { }
+  constructor(private readonly sacerdoteService: SacerdoteService) {}
 
-    @Query(() => [Sacerdote])
-    @Roles(UserRole.PARROCO)
-    async findAllSacerdotes(): Promise<Sacerdote[]> {
-        return this.sacerdoteService.findAll();
-    }
+  @Query(() => [Sacerdote])
+  @Roles(UserRole.PARROCO)
+  async findAllSacerdotes(): Promise<Sacerdote[]> {
+    return this.sacerdoteService.findAll();
+  }
 }

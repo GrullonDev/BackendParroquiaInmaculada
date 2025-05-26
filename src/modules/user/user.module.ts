@@ -6,12 +6,8 @@ import { UserResolver } from './user.resolver';
 import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-    forwardRef(() => AuthModule),
-  ],
+  imports: [TypeOrmModule.forFeature([User]), forwardRef(() => AuthModule)],
   providers: [UserService, UserResolver],
   exports: [UserService],
 })
-
-export class UserModule { }
+export class UserModule {}

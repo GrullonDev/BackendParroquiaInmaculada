@@ -13,32 +13,32 @@ import { DocumentosPorMesOutput } from './dto/documento-summary-by-mes.output';
 @UseGuards(GqlAuthGuard, RolesGuard)
 @Resolver(() => Documento)
 export class DocumentoResolver {
-    constructor(private readonly documentoService: DocumentoService) { }
+  constructor(private readonly documentoService: DocumentoService) {}
 
-    @Mutation(() => Documento)
-    @Roles(UserRole.PARROCO)
-    createDocumento(@Args('input') input: CreateDocumentoInput) {
-        return this.documentoService.create(input);
-    }
+  @Mutation(() => Documento)
+  @Roles(UserRole.PARROCO)
+  createDocumento(@Args('input') input: CreateDocumentoInput) {
+    return this.documentoService.create(input);
+  }
 
-    @Query(() => [Documento])
-    @Roles(UserRole.PARROCO)
-    findAllDocumentos(
-        @Args('tipo', { nullable: true }) tipo?: TipoDocumento,
-        @Args('desde', { nullable: true }) desde?: string,
-        @Args('hasta', { nullable: true }) hasta?: string,
-    ) {
-        return this.documentoService.findAll({ tipo, desde, hasta });
-    }
+  @Query(() => [Documento])
+  @Roles(UserRole.PARROCO)
+  findAllDocumentos(
+    @Args('tipo', { nullable: true }) tipo?: TipoDocumento,
+    @Args('desde', { nullable: true }) desde?: string,
+    @Args('hasta', { nullable: true }) hasta?: string,
+  ) {
+    return this.documentoService.findAll({ tipo, desde, hasta });
+  }
 
-    @Query(() => [DocumentosPorAnioOutput])
-    @Roles(UserRole.PARROCO)
-    countDocumentosByTipo() {
-        return this.documentoService.countDocumentosByTipo();
-    }
+  @Query(() => [DocumentosPorAnioOutput])
+  @Roles(UserRole.PARROCO)
+  countDocumentosByTipo() {
+    return this.documentoService.countDocumentosByTipo();
+  }
 
-    @Query(() => [DocumentosPorMesOutput])
-    countDocumentosPorMes(): Promise<DocumentosPorMesOutput[]> {
-        return this.documentoService.countDocumentosPorMes();
-    }
+  @Query(() => [DocumentosPorMesOutput])
+  countDocumentosPorMes(): Promise<DocumentosPorMesOutput[]> {
+    return this.documentoService.countDocumentosPorMes();
+  }
 }

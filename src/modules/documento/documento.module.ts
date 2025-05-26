@@ -10,5 +10,4 @@ import { Sacerdote } from '../sacerdote/entity/sacerdote.entity';
   imports: [TypeOrmModule.forFeature([Documento, Cliente, Sacerdote])],
   providers: [DocumentoService, DocumentoResolver],
 })
-
-export class DocumentoModule { }
+export class DocumentoModule {}

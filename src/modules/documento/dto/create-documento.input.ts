@@ -3,18 +3,18 @@ import { TipoDocumento } from '../entity/documento.entity';
 
 @InputType()
 export class CreateDocumentoInput {
-    @Field(() => TipoDocumento)
-    tipo: TipoDocumento;
+  @Field(() => TipoDocumento)
+  tipo: TipoDocumento;
 
-    @Field()
-    fechaEmision: string;
+  @Field()
+  fechaEmision: string;
 
-    @Field({ nullable: true })
-    observaciones?: string;
+  @Field({ nullable: true })
+  observaciones?: string;
 
-    @Field()
-    clienteId: number;
+  @Field()
+  clienteId: number;
 
-    @Field()
-    sacerdoteNombre: string;
+  @Field()
+  sacerdoteNombre: string;
 }

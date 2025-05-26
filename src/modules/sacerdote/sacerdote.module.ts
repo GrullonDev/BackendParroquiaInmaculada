@@ -9,5 +9,4 @@ import { Sacerdote } from './entity/sacerdote.entity';
   providers: [SacerdoteService, SacerdoteResolver],
   exports: [SacerdoteService],
 })
-
-export class SacerdoteModule { }
+export class SacerdoteModule {}
