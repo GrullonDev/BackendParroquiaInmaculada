@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DocumentoService } from './documento.service';
+import { DocumentoService } from './services/documento.service';
 import { DocumentoResolver } from './documento.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Documento } from './entity/documento.entity';
@@ -10,4 +10,4 @@ import { Sacerdote } from '../sacerdote/entity/sacerdote.entity';
   imports: [TypeOrmModule.forFeature([Documento, Cliente, Sacerdote])],
   providers: [DocumentoService, DocumentoResolver],
 })
-export class DocumentoModule {}
+export class DocumentoModule { }

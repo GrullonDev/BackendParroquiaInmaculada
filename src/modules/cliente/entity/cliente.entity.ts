@@ -1,4 +1,5 @@
 import { Field, ObjectType, ID } from '@nestjs/graphql';
+import { Documento } from 'src/modules/documento/entity/documento.entity';
 import { Padrino } from 'src/modules/padrino/entity/padrino.entity';
 import { Sacerdote } from 'src/modules/sacerdote/entity/sacerdote.entity';
 import {
@@ -8,6 +9,7 @@ import {
   CreateDateColumn,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 @ObjectType()
@@ -87,4 +89,8 @@ export class Cliente {
   @Field({ nullable: true })
   @Column({ nullable: true })
   campo36: string;
+
+  @Field(() => [Documento], { nullable: true })
+  @OneToMany(() => Documento, (documento) => documento.cliente)
+  documentos: Documento[];
 }
