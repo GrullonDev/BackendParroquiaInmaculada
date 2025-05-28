@@ -22,9 +22,7 @@ async function importDocumentos() {
             const rawFecha = row[1]?.trim();
             const fechaConstancia = rawFecha && !isNaN(Date.parse(rawFecha))
                 ? new Date(rawFecha)
-                : new Date(); // fallback por defecto
-
-            const createdAt = fechaConstancia;
+                : new Date(); // fallback
 
             registros.push({
                 nombreNino,
@@ -49,6 +47,7 @@ async function importDocumentos() {
             await AppDataSource.initialize();
 
             let insertados = 0;
+            let duplicados = 0;
 
             for (const row of registros) {
                 try {
@@ -88,6 +87,7 @@ async function importDocumentos() {
                             campo36: row.campo36,
                             noFolioLibro: row.noFolioLibro,
                             createdAt: row.fechaConstancia,
+                            sacerdote,
                         });
 
                         await AppDataSource.manager.save(cliente);
@@ -110,7 +110,9 @@ async function importDocumentos() {
                 }
             }
 
-            console.log(`✅ Documentos insertados: ${insertados}`);
+            console.log(
+                `✅ Documentos insertados: ${insertados}, Duplicados omitidos: ${duplicados}`,
+            );
             process.exit(0);
         });
 }

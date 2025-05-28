@@ -10,5 +10,4 @@ import { Padrino } from '../padrino/entity/padrino.entity';
   imports: [TypeOrmModule.forFeature([Documento, Sacerdote, Padrino])],
   providers: [ReporteService, ReporteResolver],
 })
-
-export class ReporteModule { }
+export class ReporteModule {}

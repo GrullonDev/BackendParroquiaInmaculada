@@ -26,9 +26,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: false, // o usa process.env.NODE_ENV !== 'production'
       path: '/graphql', // 👈 Esto es obligatorio en Firebase
-      plugins: [
-        ApolloServerPluginLandingPageLocalDefault()
-      ]
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
 
     UserModule,
@@ -40,5 +38,4 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
     ReporteModule,
   ],
 })
-
-export class AppModule { }
+export class AppModule {}

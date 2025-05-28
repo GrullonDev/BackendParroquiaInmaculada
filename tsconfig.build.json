@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "exclude": ["node_modules", "test", "dist", "**/*spec.ts"],
-
+  "include": ["src/**/*"],
   "compilerOptions": {
-    "outDir": "./functions/dist",
+    "outDir": "./dist",
+    "deleteOutDir": true
   }
 }

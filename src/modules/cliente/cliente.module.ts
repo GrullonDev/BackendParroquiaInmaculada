@@ -12,5 +12,4 @@ import { Sacerdote } from '../sacerdote/entity/sacerdote.entity';
   ],
   providers: [ClienteService, ClienteResolver],
 })
-
-export class ClienteModule { }
+export class ClienteModule {}
