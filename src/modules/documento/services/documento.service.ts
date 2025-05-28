@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Between, EntityManager, getManager, Repository } from 'typeorm';
-import { Documento, TipoDocumento } from './entity/documento.entity';
-import { CreateDocumentoInput } from './dto/create-documento.input';
-import { Cliente } from '../cliente/entity/cliente.entity';
-import { Sacerdote } from '../sacerdote/entity/sacerdote.entity';
-import { DocumentosPorAnioOutput } from './dto/documento-summary.output';
-import { DocumentosPorMesOutput } from './dto/documento-summary-by-mes.output';
+import { Documento, TipoDocumento } from '../entity/documento.entity';
+import { CreateDocumentoInput } from '../dto/create-documento.input';
+import { Cliente } from '../../cliente/entity/cliente.entity';
+import { Sacerdote } from '../../sacerdote/entity/sacerdote.entity';
+import { DocumentosPorAnioOutput } from '../dto/documento-summary.output';
+import { DocumentosPorMesOutput } from '../dto/documento-summary-by-mes.output';
 
 interface DocumentoFilter {
   tipo?: TipoDocumento;
-  desde?: string;
-  hasta?: string;
+  /*   desde?: string;
+    hasta?: string; */
 }
 
 @Injectable()
@@ -24,7 +24,7 @@ export class DocumentoService {
     @InjectRepository(Sacerdote)
     private readonly sacerdoteRepo: Repository<Sacerdote>,
     private readonly entityManager: EntityManager, // 👈 inyección directa
-  ) {}
+  ) { }
 
   async create(input: CreateDocumentoInput): Promise<Documento> {
     const cliente = await this.clienteRepo.findOneBy({ id: input.clienteId });
@@ -61,17 +61,29 @@ export class DocumentoService {
       where.tipo = filter.tipo;
     }
 
-    if (filter.desde && filter.hasta) {
-      where.fechaEmision = Between(filter.desde, filter.hasta);
-    }
-
     return this.documentoRepo.find({
       where,
-      order: { fechaEmision: 'DESC' },
+      order: { tipo: 'ASC' },
     });
   }
 
-  async countDocumentosByTipo(): Promise<DocumentosPorAnioOutput[]> {
+  async countDocumentByType(): Promise<any> {
+    const result = await this.entityManager.query(
+      `
+        select
+          SUM(case when tipo = 'BAUTIZO' then 1 else 0 end) as bautizos,
+          SUM(case when tipo = 'COMUNION' then 1 else 0 end) as comuniones,
+          SUM(case when tipo = 'CONFIRMACION' then 1 else 0 end) as confirmaciones,
+          SUM(case when tipo = 'MATRIMONIO' then 1 else 0 end) as matrimonios
+        from
+          documento
+      `,
+    );
+
+    return result[0];
+  }
+
+  async countDocumentByYear(): Promise<DocumentosPorAnioOutput[]> {
     const rawData = await this.entityManager.query(`
     SELECT 
       EXTRACT(YEAR FROM "fechaEmision"::DATE) AS anio,
