@@ -16,7 +16,7 @@ services:
   ngrok:
     image: ngrok/ngrok:latest
     container_name: ngrok
-    command: http app:3000
+    command: http --domain=able-prawn-singularly.ngrok-free.app app:3000
     env_file:
       - .env.production
     environment:
