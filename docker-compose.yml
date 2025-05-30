@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: iglesia_app
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env.production
+    networks:
+      - iglesia_network
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: ngrok
+    command: http app:3000
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    depends_on:
+      - app
+    networks:
+      - iglesia_network
+
+networks:
+  iglesia_network:
+    driver: bridge
