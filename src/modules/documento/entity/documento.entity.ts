@@ -42,10 +42,12 @@ export class Documento {
   @Column({ nullable: true })
   observaciones: string;
 
+  @Field()
   @ManyToOne(() => Cliente, (cliente) => cliente.documentos, { eager: true })
   @JoinColumn({ name: 'cliente_id' })
   cliente: Cliente;
 
+  @Field()
   @ManyToOne(() => Sacerdote, (sacerdote) => sacerdote.documentos, { eager: true })
   @JoinColumn({ name: 'sacerdote_id' })
   sacerdote: Sacerdote;
