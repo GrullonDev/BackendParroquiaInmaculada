@@ -17,6 +17,8 @@ services:
     image: ngrok/ngrok:latest
     container_name: ngrok
     command: http app:3000
+    env_file:
+      - .env.production
     environment:
       NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
     depends_on:
