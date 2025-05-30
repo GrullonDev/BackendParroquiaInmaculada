@@ -20,7 +20,7 @@ services:
     env_file:
       - .env.production
     environment:
-      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+      NGROK_AUTHTOKEN: 2xeBV4WOMbo0Jrv0Qmybz1AEESW_28gkJhf6aLr5PqNDYQZNS
     depends_on:
       - app
     networks:
