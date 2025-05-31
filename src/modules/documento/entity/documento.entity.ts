@@ -27,8 +27,8 @@ registerEnumType(TipoDocumento, {
 @Entity()
 export class Documento {
   @Field(() => ID)
-  @PrimaryGeneratedColumn()
-  id: number; // ← agregado
+  @PrimaryGeneratedColumn('uuid')
+  id: string; // ← agregado
 
   @Field(() => TipoDocumento)
   @Column({ type: 'enum', enum: TipoDocumento })
@@ -42,6 +42,10 @@ export class Documento {
   @Column({ nullable: true })
   observaciones: string;
 
+  @Field()
+  @CreateDateColumn()
+  creadoEn: Date;
+
   @Field(() => Cliente)
   @ManyToOne(() => Cliente, (cliente) => cliente.documentos, { eager: true })
   @JoinColumn({ name: 'cliente_id' })
@@ -51,8 +55,4 @@ export class Documento {
   @ManyToOne(() => Sacerdote, (sacerdote) => sacerdote.documentos, { eager: true })
   @JoinColumn({ name: 'sacerdote_id' })
   sacerdote: Sacerdote;
-
-  @Field()
-  @CreateDateColumn()
-  creadoEn: Date;
 }

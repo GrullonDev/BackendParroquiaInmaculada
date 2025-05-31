@@ -18,13 +18,12 @@ services:
   ngrok:
     image: ngrok/ngrok:latest
     container_name: ngrok
-    command: http --domain=able-prawn-singularly.ngrok-free.app app:3000
-    env_file:
-      - .env.production
-    environment:
-      NGROK_AUTHTOKEN: 2xeBV4WOMbo0Jrv0Qmybz1AEESW_28gkJhf6aLr5PqNDYQZNS
+    restart: unless-stopped
+    command: http --domain=hornet-nice-positively.ngrok-free.app app:3000
     depends_on:
       - app
+    environment:
+      NGROK_AUTHTOKEN: 2xeBV4WOMbo0Jrv0Qmybz1AEESW_28gkJhf6aLr5PqNDYQZNS
     networks:
       - iglesia_network
 

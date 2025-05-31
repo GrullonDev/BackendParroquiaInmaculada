@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn } from 'typeorm';
 import { Cliente } from '../../cliente/entity/cliente.entity';
 import { Documento } from 'src/modules/documento/entity/documento.entity';
 
@@ -7,8 +7,8 @@ import { Documento } from 'src/modules/documento/entity/documento.entity';
 @Entity()
 export class Sacerdote {
   @Field(() => ID)
-  @PrimaryGeneratedColumn() // ✅ Añadir columna primaria
-  id: number;
+  @PrimaryGeneratedColumn('uuid') // ✅ Añadir columna primaria
+  id: string;
 
   @Field()
   @Column()
@@ -20,9 +20,11 @@ export class Sacerdote {
 
   @Field(() => [Cliente], { nullable: true })
   @OneToMany(() => Cliente, (cliente) => cliente.sacerdote)
+  @JoinColumn({name: 'cliente_id'})
   clientes: Cliente[];
 
   @Field(() => [Documento], { nullable: true })
   @OneToMany(() => Documento, (documento) => documento.sacerdote)
+  @JoinColumn({name: 'document_id'})
   documentos: Documento[];
 }

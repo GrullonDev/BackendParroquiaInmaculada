@@ -16,8 +16,8 @@ import {
 @Entity()
 export class Cliente {
   @Field(() => ID)
-  @PrimaryGeneratedColumn() // ✅ Añadir columna primaria
-  id: number;
+  @PrimaryGeneratedColumn('uuid') // ✅ Añadir columna primaria
+  id: string;
 
   @Field()
   @Column({ unique: true })
@@ -41,6 +41,7 @@ export class Cliente {
 
   @Field(() => Padrino, { nullable: true })
   @ManyToOne(() => Padrino, (padrino) => padrino.clientes, { eager: true })
+  @JoinColumn({ name: 'padrino_id' })
   padrino: Padrino;
 
   @Field(() => Sacerdote, { nullable: true })
@@ -92,5 +93,6 @@ export class Cliente {
 
   @Field(() => [Documento], { nullable: true })
   @OneToMany(() => Documento, (documento) => documento.cliente)
+  @JoinColumn({ name: 'documento_id' })
   documentos: Documento[];
 }

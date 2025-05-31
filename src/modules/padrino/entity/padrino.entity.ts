@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn } from 'typeorm';
 import { Cliente } from '../../cliente/entity/cliente.entity';
 
 @ObjectType()
@@ -18,5 +18,7 @@ export class Padrino {
   cantidad: number;
 
   @OneToMany(() => Cliente, (cliente) => cliente.padrino)
+  @Field()
+  @JoinColumn({name: 'cliente_id'})
   clientes: Cliente[];
 }

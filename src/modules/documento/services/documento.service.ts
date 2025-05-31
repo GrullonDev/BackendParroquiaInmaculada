@@ -27,9 +27,11 @@ export class DocumentoService {
   ) { }
 
   async create(input: CreateDocumentoInput): Promise<Documento> {
+    // Obtener cliente
     const cliente = await this.clienteRepo.findOneBy({ id: input.clienteId });
     if (!cliente) throw new Error('Cliente no encontrado');
 
+    // Obtener sacerdote
     let sacerdote = await this.sacerdoteRepo.findOneBy({
       nombreCompleto: input.sacerdoteNombre,
     });
