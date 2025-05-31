@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import { Documento, TipoDocumento } from 'src/modules/documento/entity/documento.entity';
 import { Cliente } from 'src/modules/cliente/entity/cliente.entity';
 import { Sacerdote } from 'src/modules/sacerdote/entity/sacerdote.entity';
+import { Padrino } from 'src/modules/padrino/entity/padrino.entity';
 
 async function importDocumentos() {
     const registros: any[] = [];
@@ -15,6 +16,7 @@ async function importDocumentos() {
             const folio = row[3]?.toString().replace('|', '').trim();
             const partida = row[6]?.toString().replace('|', '').trim();
             const sacerdoteNombre = row[0]?.trim();
+            const padrinoNombre = row[4]?.trim();
 
             if (!nombreNino || !folio || !partida || !sacerdoteNombre) return;
 
@@ -41,6 +43,7 @@ async function importDocumentos() {
                 noFolioLibro,
                 fechaConstancia,
                 sacerdoteNombre,
+                padrinoNombre,
             });
         })
         .on('end', async () => {
@@ -51,7 +54,19 @@ async function importDocumentos() {
 
             for (const row of registros) {
                 try {
-                    const noFolioLibro = row.noFolioLibro;
+                    const { noFolioLibro, padrinoNombre } = row;
+
+                    // Padrino (opcional)
+                    let padrino: Padrino | null = null;
+                    if (padrinoNombre && !padrinoNombre.toLowerCase().includes('no aparece')) {
+                        padrino = await AppDataSource.manager.findOne(Padrino, {
+                            where: { nombre: padrinoNombre },
+                        });
+                        if (!padrino) {
+                            padrino = AppDataSource.manager.create(Padrino, { nombre: padrinoNombre });
+                            await AppDataSource.manager.save(padrino);
+                        }
+                    }
 
                     // Sacerdote
                     let sacerdote = await AppDataSource.manager.findOne(Sacerdote, {
