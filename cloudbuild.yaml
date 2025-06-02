@@ -1,0 +1,33 @@
+steps:
+  # Paso 1: Construir la imagen Docker con el tag completo
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - --platform=linux/amd64
+      - -t
+      - us-central1-docker.pkg.dev/$PROJECT_ID/parroquia-inmaculada/iglesia-app
+      - .
+
+  # Paso 2: Subir la imagen al Container Registry de Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - us-central1-docker.pkg.dev/$PROJECT_ID/parroquia-inmaculada/iglesia-app
+
+  # Paso 3: Desplegar a Cloud Run con las variables de entorno
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - run
+      - deploy
+      - iglesia-app
+      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/parroquia-inmaculada/iglesia-app
+      - --region=us-central1
+      - --platform=managed
+      - --allow-unauthenticated
+      - --port=3000
+      - --timeout=300
+      - --set-env-vars=NODE_ENV=production,DB_HOST=dpg-d0fdogbuibrs73ejfhcg-a.oregon-postgres.render.com,DB_PORT=5432,DB_USER=parroquia_user,DB_PASS=qUGfzs5DwnzFyTAzFaEqPQscwb2ZHilK,DB_NAME=parroquiadb_teio
+
+images:
+  - us-central1-docker.pkg.dev/$PROJECT_ID/parroquia-inmaculada/iglesia-app
