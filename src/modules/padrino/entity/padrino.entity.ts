@@ -17,8 +17,7 @@ export class Padrino {
   @Column({ default: 0 })
   cantidad: number;
 
+  @Field(() => [Cliente], { nullable: true }) // ✅ especificar tipo correcto
   @OneToMany(() => Cliente, (cliente) => cliente.padrino)
-  @Field()
-  @JoinColumn({name: 'cliente_id'})
-  clientes: Cliente[];
+  clientes: Cliente[]; // ✅ no lleva JoinColumn aquí
 }
